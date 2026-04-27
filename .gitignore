@@ -13,6 +13,9 @@ Perfil/
 # Trackers (datos personales y datos sensibles de terceros)
 tracking/
 
+# Perfil privado de búsqueda (salario, criterios, contactos)
+yo/
+
 # Variables de entorno
 .env
 .env.local
