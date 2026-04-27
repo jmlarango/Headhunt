@@ -1,0 +1,57 @@
+{
+  "hooks": {
+    "PreToolCall": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/protect-docs.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/session-stop.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git *)",
+      "Bash(npm *)",
+      "Bash(node *)",
+      "Bash(md-to-pdf *)",
+      "Bash(pandoc *)",
+      "Bash(python3 *)",
+      "Bash(ls *)",
+      "Bash(find *)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:remotive.com)",
+      "WebFetch(domain:weworkremotely.com)",
+      "WebFetch(domain:remoteok.com)",
+      "WebFetch(domain:jobspresso.co)",
+      "WebFetch(domain:getonbrd.com)",
+      "WebFetch(domain:workana.com)",
+      "WebFetch(domain:torre.ai)",
+      "WebFetch(domain:himalayas.app)"
+    ],
+    "deny": [
+      "Write(Documentos Base/*)",
+      "Edit(Documentos Base/*)",
+      "Write(NotebookLM/*)",
+      "Edit(NotebookLM/*)"
+    ]
+  }
+}

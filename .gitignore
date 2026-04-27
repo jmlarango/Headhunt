@@ -16,6 +16,9 @@ tracking/
 # Perfil privado de búsqueda (salario, criterios, contactos)
 yo/
 
+# Outputs de aplicaciones (documentos personales generados)
+Outputs/
+
 # Variables de entorno
 .env
 .env.local

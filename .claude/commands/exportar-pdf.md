@@ -1,34 +1,45 @@
 ---
-description: Exporta la HV a PDF usando md-to-pdf (ya instalado). Listo en segundos.
+description: Exporta una HV a PDF usando md-to-pdf (ya instalado). Output va a Outputs/Empleo/HVs/ o la carpeta del proyecto correspondiente.
 model: claude-haiku-4-5-20251001
 ---
 
-Dependencia: `md-to-pdf` (ya instalado globalmente).
+Dependencia: `md-to-pdf` (instalado globalmente).
 CSS: `Documentos Base/HV Generica/cv-style.css`
 
-**Generar PDF en español:**
+**HV genérica ES → PDF:**
 ```bash
-cd "Documentos Base/HV Generica"
-md-to-pdf "HV-generica-ES.md" --stylesheet "cv-style.css" --pdf-options '{"format":"A4","margin":{"top":"18mm","bottom":"15mm","left":"20mm","right":"20mm"}}'
+md-to-pdf "Documentos Base/HV Generica/HV-generica-ES.md" \
+  --stylesheet "Documentos Base/HV Generica/cv-style.css" \
+  --pdf-options '{"format":"A4","margin":{"top":"18mm","bottom":"15mm","left":"20mm","right":"20mm"}}' \
+  && mv "Documentos Base/HV Generica/HV-generica-ES.pdf" "Outputs/Empleo/HVs/"
 ```
 
-**Generar PDF en inglés:**
+**HV genérica EN → PDF:**
 ```bash
-cd "Documentos Base/HV Generica"
-md-to-pdf "CV-generic-EN.md" --stylesheet "cv-style.css" --pdf-options '{"format":"A4","margin":{"top":"18mm","bottom":"15mm","left":"20mm","right":"20mm"}}'
+md-to-pdf "Documentos Base/HV Generica/CV-generic-EN.md" \
+  --stylesheet "Documentos Base/HV Generica/cv-style.css" \
+  --pdf-options '{"format":"A4","margin":{"top":"18mm","bottom":"15mm","left":"20mm","right":"20mm"}}' \
+  && mv "Documentos Base/HV Generica/CV-generic-EN.pdf" "Outputs/Empleo/HVs/"
 ```
 
-**Generar versión adaptada a una vacante específica:**
-Primero ejecutar `/analista-cv` para obtener la versión adaptada en markdown,
-guardarla como `HV-[organización]-[fecha].md` en `Documentos Base/HV Generica/`,
-luego ejecutar:
+**HV adaptada a vacante → PDF:**
 ```bash
-cd "Documentos Base/HV Generica"
-md-to-pdf "HV-[organización]-[fecha].md" --stylesheet "cv-style.css" --pdf-options '{"format":"A4","margin":{"top":"18mm","bottom":"15mm","left":"20mm","right":"20mm"}}'
+# Reemplazar [archivo] con el nombre del .md adaptado en Outputs/Empleo/HVs/
+md-to-pdf "Outputs/Empleo/HVs/[archivo].md" \
+  --stylesheet "Documentos Base/HV Generica/cv-style.css" \
+  --pdf-options '{"format":"A4","margin":{"top":"18mm","bottom":"15mm","left":"20mm","right":"20mm"}}'
 ```
 
-**Output:** el PDF queda en la misma carpeta que el .md fuente.
-No se sube a git (Documentos Base/ está en .gitignore).
+**SOP o HV Académica → PDF:**
+```bash
+md-to-pdf "Outputs/Estudio/SOPs/[archivo].md" \
+  --stylesheet "Documentos Base/HV Generica/cv-style.css" \
+  --pdf-options '{"format":"A4","margin":{"top":"18mm","bottom":"15mm","left":"20mm","right":"20mm"}}'
+```
 
-**Ajustar diseño:** editar `cv-style.css` para cambiar fuente, colores o márgenes.
-Color actual: azul #1e508c para headers. Fuente: Calibri/Arial, 11pt.
+**Estructura de Outputs:**
+- Empleo → `Outputs/Empleo/HVs/` (HVs) · `Outputs/Empleo/CoverLetters/` (cartas)
+- Estudio → `Outputs/Estudio/SOPs/` · `Outputs/Estudio/Paquetes/`
+- Coaching → `Outputs/Coaching/Propuestas/`
+
+Outputs/ está en .gitignore — los PDFs no se suben a GitHub.
