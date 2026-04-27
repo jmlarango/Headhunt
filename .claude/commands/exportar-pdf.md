@@ -1,50 +1,34 @@
 ---
-description: Exporta la HV a PDF listo para enviar. Requiere Pandoc instalado.
+description: Exporta la HV a PDF usando md-to-pdf (ya instalado). Listo en segundos.
 model: claude-haiku-4-5-20251001
 ---
 
-Fuente: `Documentos Base/HV Generica/HV-generica-ES.md` (por defecto) o el archivo que indique J.
+Dependencia: `md-to-pdf` (ya instalado globalmente).
+CSS: `Documentos Base/HV Generica/cv-style.css`
 
-**Paso 1 — Verificar dependencias:**
-Ejecuta en terminal:
-```
-pandoc --version
-```
-Si no está instalado: instruir a J para instalarlo desde https://pandoc.org/installing.html
-Si está instalado: continuar al paso 2.
-
-**Paso 2 — Generar PDF:**
+**Generar PDF en español:**
 ```bash
-pandoc "Documentos Base/HV Generica/HV-generica-ES.md" \
-  -o "Documentos Base/HV Generica/HV-generica-ES.pdf" \
-  --pdf-engine=xelatex \
-  -V geometry:margin=2cm \
-  -V fontsize=11pt \
-  -V mainfont="Calibri" \
-  -V linestretch=1.15
+cd "Documentos Base/HV Generica"
+md-to-pdf "HV-generica-ES.md" --stylesheet "cv-style.css" --pdf-options '{"format":"A4","margin":{"top":"18mm","bottom":"15mm","left":"20mm","right":"20mm"}}'
 ```
 
-Si xelatex no está disponible, usar wkhtmltopdf:
+**Generar PDF en inglés:**
 ```bash
-pandoc "Documentos Base/HV Generica/HV-generica-ES.md" \
-  -o "Documentos Base/HV Generica/HV-generica-ES.pdf" \
-  --pdf-engine=wkhtmltopdf
+cd "Documentos Base/HV Generica"
+md-to-pdf "CV-generic-EN.md" --stylesheet "cv-style.css" --pdf-options '{"format":"A4","margin":{"top":"18mm","bottom":"15mm","left":"20mm","right":"20mm"}}'
 ```
 
-**Paso 3 — Verificar output:**
-- Confirmar que el archivo PDF existe en la carpeta
-- Indicar a J la ruta exacta del archivo generado
-- Recordar que el PDF NO se sube a git (está en Documentos Base/ que es gitignoreado)
+**Generar versión adaptada a una vacante específica:**
+Primero ejecutar `/analista-cv` para obtener la versión adaptada en markdown,
+guardarla como `HV-[organización]-[fecha].md` en `Documentos Base/HV Generica/`,
+luego ejecutar:
+```bash
+cd "Documentos Base/HV Generica"
+md-to-pdf "HV-[organización]-[fecha].md" --stylesheet "cv-style.css" --pdf-options '{"format":"A4","margin":{"top":"18mm","bottom":"15mm","left":"20mm","right":"20mm"}}'
+```
 
-**Metadatos PDF a configurar (para ATS):**
-Si J usa Adobe Acrobat o PDF-XChange Editor después:
-- Title: Juan Manuel López Arango — Hoja de Vida
-- Author: Juan Manuel López Arango
-- Subject: Economista | Sistemas | Política Pública | IA
-- Keywords: [keywords del rol específico — insertar antes de enviar]
-- Creator: Claude Code — Anthropic
+**Output:** el PDF queda en la misma carpeta que el .md fuente.
+No se sube a git (Documentos Base/ está en .gitignore).
 
-**Alternativa sin Pandoc:**
-1. Abrir el .md en VS Code
-2. Instalar extensión "Markdown PDF"
-3. Click derecho → "Markdown PDF: Export (pdf)"
+**Ajustar diseño:** editar `cv-style.css` para cambiar fuente, colores o márgenes.
+Color actual: azul #1e508c para headers. Fuente: Calibri/Arial, 11pt.
