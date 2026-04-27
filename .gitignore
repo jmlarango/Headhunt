@@ -20,6 +20,9 @@ yo/
 .env
 .env.local
 
+# Claude Code — configuración local
+.claude/settings.local.json
+
 # Archivos de sistema
 .DS_Store
 Thumbs.db
