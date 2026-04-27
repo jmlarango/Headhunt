@@ -1,0 +1,23 @@
+# Headhunter — exclusiones de privacidad
+
+# Documentos confidenciales
+Documentos Base/
+NotebookLM/
+
+# Sesiones (privadas, contienen reflexiones personales)
+sessions/
+
+# Perfil completo (privado)
+Perfil/
+
+# Trackers (datos personales y datos sensibles de terceros)
+tracking/
+
+# Variables de entorno
+.env
+.env.local
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
